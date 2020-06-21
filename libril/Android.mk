@@ -19,6 +19,13 @@ LOCAL_MODULE:= libril
 
 LOCAL_LDLIBS += -lpthread
 
+ifneq ($(TARGET_SIMULATOR),true)
+LOCAL_C_INCLUDES += bionic \
+					external/stlport/stlport
+LOCAL_SHARED_LIBRARIES += libstlport \
+						  libdl
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 
@@ -40,5 +47,8 @@ LOCAL_MODULE:= libril_static
 
 LOCAL_LDLIBS += -lpthread
 
-include $(BUILD_STATIC_LIBRARY)
+	#LOCAL_SHARED_LIBRARIES += librt
+
+
+INCLUDE $(BUILD_STATIC_LIBRARY)
 endif # ANDROID_BIONIC_TRANSITION
